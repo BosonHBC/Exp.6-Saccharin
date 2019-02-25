@@ -8,6 +8,8 @@ public class CleanerMovement : MonoBehaviour
     [SerializeField] private float fFloatForce;
     Rigidbody rb;
      bool bInWater;
+    [SerializeField] GameObject particleGo;
+    [SerializeField] Animator anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,5 +37,7 @@ public class CleanerMovement : MonoBehaviour
     public void GoToWater(bool b_Inwater)
     {
         bInWater = b_Inwater;
+        particleGo.SetActive(b_Inwater);
+        anim.SetBool("inWater_b", b_Inwater);
     }
 }

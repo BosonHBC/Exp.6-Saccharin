@@ -15,6 +15,7 @@ public class Suger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(mainRb)
         mainRb.AddForce(Vector3.up * fFloatForce, ForceMode.Force);
     }
 }

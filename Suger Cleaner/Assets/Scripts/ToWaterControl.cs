@@ -50,5 +50,6 @@ public class ToWaterControl : MonoBehaviour
     {
         PPController.instance.GoInWater(b_inWater);
         movement.GoToWater(b_inWater);
+        GameManager.instance.PlayParticle();
     }
 }
