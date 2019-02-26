@@ -26,12 +26,12 @@ public class ToWaterControl : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!bInWater)
+            if (!bInWater && other.transform.position.y < transform.GetChild(1).position.y)
             {
                 bInWater = true;
 
             }
-            else if (bInWater)
+            else if (bInWater  && other.transform.position.y >= transform.GetChild(1).position.y)
             {
                 bInWater = false;
 
@@ -43,6 +43,7 @@ public class ToWaterControl : MonoBehaviour
         {
             Debug.Log("Exit");
             other.transform.parent.parent.gameObject.SetActive(false);
+            GameManager.instance.Escape();
         }
     }
 
