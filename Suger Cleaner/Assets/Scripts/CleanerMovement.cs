@@ -10,16 +10,22 @@ public class CleanerMovement : MonoBehaviour
      bool bInWater;
     [SerializeField] GameObject particleGo;
     [SerializeField] Animator anim;
+
+    Transform mesh;
+   public Vector3 lookAtPoint;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        mesh = transform.GetChild(2);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         PerformMovement();
+        mesh.LookAt(lookAtPoint);
+
     }
 
     void PerformMovement()

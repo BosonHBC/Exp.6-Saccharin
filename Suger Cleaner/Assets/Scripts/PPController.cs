@@ -17,6 +17,9 @@ public class PPController : MonoBehaviour
     Bloom bloom;
     ColorGrading cg;
     private float[] boomIntensity = { 0.3f, 1.6f };
+    Camera cam;
+    [SerializeField] LayerMask rayCastMask;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,12 +29,15 @@ public class PPController : MonoBehaviour
 
         if (bloom == null || cg == null)
             Debug.LogError("Effect not found");
+        cam = Camera.main;
+        player = transform.parent.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        CameraRaycast();
+
     }
 
     public void GoInWater(bool b_inWater)
@@ -41,5 +47,21 @@ public class PPController : MonoBehaviour
         cg.active = b_inWater;
 
 
+    }
+
+    void CameraRaycast()
+    {
+        Vector2 mousePos = new Vector2();
+        mousePos.x = Input.mousePosition.x;
+        mousePos.y = Input.mousePosition.y;
+        Ray ray = cam.ScreenPointToRay(mousePos);
+        Debug.DrawRay(ray.origin, ray.direction * 200, Color.blue);
+        Debug.DrawRay(cam.transform.position, cam.transform.forward * 10, Color.red);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 150, rayCastMask))
+        {
+            Debug.DrawLine(player.transform.position, hit.point);
+            player.GetComponent<CleanerMovement>().lookAtPoint = hit.point;
+        }
     }
 }
